@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>English Practice - Benoît</title>
+    <style>
+        :root {
+            --primary: #2c3e50;
+            --secondary: #3498db;
+            --bg: #f8f9fa;
+            --white: #ffffff;
+            --accent: #e67e22;
+            --success: #27ae60;
+            --error: #e74c3c;
+        }
+
+        body {
+            font-family: 'Segoe UI', Arial, sans-serif;
+            background-color: var(--bg);
+            color: var(--primary);
+            line-height: 1.6;
+            margin: 0;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: auto;
+            background: var(--white);
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+        }
+
+        h1 { text-align: center; color: var(--secondary); margin-bottom: 30px; }
+        h2 { border-left: 5px solid var(--secondary); padding-left: 15px; margin-top: 40px; margin-bottom: 20px; }
+
+        .video-wrapper {
+            position: relative;
+            padding-bottom: 56.25%;
+            height: 0;
+            margin-bottom: 30px;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+
+        .video-wrapper iframe {
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+        }
+
+        table { width: 100%; border-collapse: collapse; margin-top: 20px; table-layout: fixed; }
+        th, td { padding: 12px; border-bottom: 1px solid #eee; text-align: left; overflow: hidden; }
+        th { background-color: #f2f2f2; }
+        
+        .eng { color: var(--secondary); font-weight: bold; width: 45%; }
+        .fra { color: #7f8c8d; font-style: italic; width: 45%; }
+        .speaker-btn { background: none; border: none; cursor: pointer; font-size: 1.2rem; width: 10%; text-align: center; }
+        .speaker-btn:hover { transform: scale(1.2); }
+
+        .quiz-container { margin-top: 40px; background: #fdfdfd; padding: 20px; border-radius: 10px; border: 1px solid #ddd; }
+        .quiz-question { margin-bottom: 20px; padding: 15px; border-bottom: 1px solid #eee; }
+        .options-grid { display: grid; grid-template-columns: 1fr; gap: 10px; margin-top: 10px; }
+        .option-label { background: #fff; border: 1px solid #ddd; padding: 10px; border-radius: 5px; cursor: pointer; transition: 0.3s; }
+        .option-label:hover { background: #e9ecef; }
+        
+        #quiz-result { display: none; margin-top: 20px; padding: 15px; border-radius: 5px; text-align: center; font-weight: bold; }
+        .btn-validate { display: block; width: 100%; padding: 15px; background: var(--secondary); color: white; border: none; border-radius: 5px; font-size: 1.1rem; cursor: pointer; margin-top: 20px; }
+        /* OUGH Cards Section */
+        .ough-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 20px;
+            margin-top: 30px;
+        }
+
+        .ough-card {
+            background: #fff;
+            border: 1px solid #eee;
+            border-radius: 12px;
+            padding: 20px;
+            text-align: center;
+            transition: 0.3s;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .ough-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 15px rgba(0,0,0,0.1);
+            border-color: var(--secondary);
+        }
+
+        .ough-word {
+            font-size: 1.8rem;
+            color: var(--primary);
+            margin: 0;
+            display: block;
+            text-decoration: none;
+        }
+
+        .ough-phonetic {
+            color: var(--accent);
+            font-family: monospace;
+            font-size: 1.1rem;
+            margin: 5px 0;
+            display: block;
+            text-decoration: none;
+        }
+
+        .ough-def {
+            background: #f8f9fa;
+            padding: 5px 10px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            margin: 10px 0;
+            display: inline-block;
+        }
+
+        .ough-example {
+            font-size: 0.85rem;
+            font-style: italic;
+            color: #666;
+            margin-top: 10px;
+            text-align: left;
+            border-top: 1px solid #f0f0f0;
+            padding-top: 10px;
+        }
+
+        .audio-circle {
+            background: var(--secondary);
+            color: white;
+            border: none;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            cursor: pointer;
+            margin: 10px auto;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: 0.2s;
+        }
+
+        .audio-circle:hover { background: var(--primary); }
+
+        .section-title {
+            border-left: 5px solid var(--accent);
+            padding-left: 15px;
+            margin: 40px 0 20px;
+            color: var(--primary);
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>English Practice - Session 1 (Benoît)</h1>
+
+    <div class="video-wrapper">
+        <iframe src="https://www.youtube.com/embed/y0-eSFkbHqg" frameborder="0" allowfullscreen></iframe>
+    </div>
+
+    <h2>Transcription & Traduction</h2>
+    <table>
+        <thead>
+            <tr>
+                <th style="width: 10%;">Audio</th>
+                <th style="width: 45%;">English</th>
+                <th style="width: 45%;">Français</th>
+            </tr>
+        </thead>
+        <tbody id="transcript-body">
+            </tbody>
+    </table>
+
+    <h2>Quiz de Révision (20 questions)</h2>
+    <div class="quiz-container">
+        <div id="quiz-content"></div>
+        <button class="btn-validate" onclick="validateQuiz()">Vérifier mes réponses</button>
+        <div id="quiz-result"></div>
+    </div>
+</div>
+
+<h2 class="section-title">Le Défi des "OUGH" 🚀</h2>
+    <div class="ough-grid">
+        <div class="ough-card">
+            <div>
+                <a href="https://www.wordreference.com/enfr/tough" target="_blank" class="ough-word">Tough</a>
+                <a href="https://www.dictionary.com/browse/tough" target="_blank" class="ough-phonetic">/tʌf/</a>
+                <span class="ough-def">Dur / Difficile</span>
+                <button class="audio-circle" onclick="speak('tough')">▶️</button>
+            </div>
+            <div class="ough-example">
+                "This has been a <a href="https://youglish.com/pronounce/tough/english" target="_blank" rel="noopener noreferrer">tough</a> couple of weeks."
+            </div>
+        </div>
+
+        <div class="ough-card">
+            <div>
+                <a href="https://www.wordreference.com/enfr/though" target="_blank" class="ough-word">Though</a>
+                <a href="https://www.dictionary.com/browse/though" target="_blank" class="ough-phonetic">/ðəʊ/</a>
+                <span class="ough-def">Bien que</span>
+                <button class="audio-circle" onclick="speak('though')">▶️</button>
+            </div>
+            <div class="ough-example">
+                "It's not just individuals, <a href="https://youglish.com/pronounce/though/english" target="_blank" rel="noopener noreferrer">though</a>, that experience nostalgia."
+            </div>
+        </div>
+
+        <div class="ough-card">
+            <div>
+                <a href="https://www.wordreference.com/enfr/through" target="_blank" class="ough-word">Through</a>
+                <a href="https://www.dictionary.com/browse/through" target="_blank" class="ough-phonetic">/θruː/</a>
+                <span class="ough-def">À travers</span>
+                <button class="audio-circle" onclick="speak('through')">▶️</button>
+            </div>
+            <div class="ough-example">
+                "Because now we're at the point that <a href="https://youglish.com/pronounce/through/english" target="_blank" rel="noopener noreferrer">through</a> quantum physics..."
+            </div>
+        </div>
+
+        <div class="ough-card">
+            <div>
+                <a href="https://www.wordreference.com/enfr/thought" target="_blank" class="ough-word">Thought</a>
+                <a href="https://www.dictionary.com/browse/thought" target="_blank" class="ough-phonetic">/θɔːt/</a>
+                <span class="ough-def">Pensée / Pensais</span>
+                <button class="audio-circle" onclick="speak('thought')">▶️</button>
+            </div>
+            <div class="ough-example">
+                "I played this chord that was so wrong I <a href="https://youglish.com/pronounce/thought/english" target="_blank" rel="noopener noreferrer">thought</a> I had just"
+            </div>
+        </div>
+    </div>
+<script src="script.js"></script>
+
+</body>
+</html>
