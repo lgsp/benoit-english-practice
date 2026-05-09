@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>English Practice - Benoît Session 2</title>
+    <style>
+        :root {
+            --primary: #2c3e50; --secondary: #3498db; --bg: #f4f7f6;
+            --white: #ffffff; --success: #27ae60; --error: #e74c3c; --text: #333;
+        }
+        body { font-family: 'Segoe UI', sans-serif; background: var(--bg); color: var(--text); padding: 20px; }
+        .container { max-width: 900px; margin: 0 auto; background: var(--white); padding: 30px; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); }
+        h1, h2 { color: var(--primary); }
+        h2 { border-left: 5px solid var(--secondary); padding-left: 15px; margin-top: 30px; }
+        .video-container { position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; border-radius: 8px; margin-bottom: 20px; }
+        .video-container iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; }
+        .quiz-question { background: #f9f9f9; padding: 20px; border-radius: 8px; margin-bottom: 20px; border: 1px solid #ddd; }
+        .options-grid { display: grid; grid-template-columns: 1fr; gap: 10px; margin-top: 10px; }
+        .option-btn { background: #fff; border: 2px solid #eee; padding: 10px; border-radius: 6px; cursor: pointer; text-align: left; }
+        .option-btn:hover:not(:disabled) { background: #f0f7ff; border-color: var(--secondary); }
+        .correct { background: #d4edda !important; border-color: var(--success) !important; }
+        .wrong { background: #f8d7da !important; border-color: var(--error) !important; }
+        .feedback { margin-top: 10px; padding: 10px; border-radius: 5px; display: none; font-size: 0.9rem; }
+        #final-score { display: none; padding: 20px; background: #eef2f7; border-radius: 10px; text-align: center; }
+        table { width: 100%; border-collapse: collapse; margin-top: 20px; }
+        th, td { padding: 12px; border-bottom: 1px solid #ddd; text-align: left; }
+        th { background: var(--secondary); color: white; }
+        .example { font-style: italic; color: #666; }
+    </style>
+</head>
+<body>
+<div class="container">
+    <h1>Apprentissage Anglais - Benoît</h1>
+    <div class="video-container">
+        <iframe src="https://www.youtube.com/embed/WDsT9XEq4NA" frameborder="0" allowfullscreen></iframe>
+    </div>
+    <h2>QCM : Votre Cerveau et les Procédures</h2>
+    <div id="quiz-container"></div>
+    <div id="final-score">
+        <h2>Résultat : <span id="score-display"></span></h2>
+        <div id="summary-errors" style="text-align:left; margin-top:15px;"></div>
+        <button onclick="location.reload()" style="margin-top:15px; padding:10px;">Recommencer</button>
+    </div>
+    <h2>Vocabulaire de la séance précédente</h2>
+    <table>
+        <thead><tr><th>Anglais</th><th>Français</th><th>Exemple</th></tr></thead>
+        <tbody id="vocab-table"></tbody>
+    </table>
+</div>
+<script src="script.js"></script>
+</body>
+</html>
