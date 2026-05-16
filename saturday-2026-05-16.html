@@ -1,0 +1,525 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>English Practice - Put Your Life in Order</title>
+    <style>
+        :root {
+            --primary: #2c3e50;
+            --secondary: #34495e;
+            --accent: #4a69bd;
+            --bg: #f9f9fb;
+            --white: #ffffff;
+            --success: #2ecc71;
+            --error: #e74c3c;
+            --text: #2c3e50;
+            --light-gray: #f1f2f6;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--bg);
+            color: var(--text);
+            margin: 0;
+            padding: 20px;
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 950px;
+            margin: 0 auto;
+            background: var(--white);
+            padding: 40px;
+            border-radius: 12px;
+            box-shadow: 0 8px 24px rgba(0,0,0,0.06);
+        }
+
+        header {
+            text-align: center;
+            border-bottom: 2px solid var(--light-gray);
+            margin-bottom: 30px;
+            padding-bottom: 20px;
+        }
+
+        h1 { font-size: 2.2rem; color: var(--primary); margin-bottom: 5px; }
+        .session-date { font-size: 1.1rem; color: var(--accent); font-weight: 600; }
+
+        .video-wrapper {
+            position: relative;
+            padding-bottom: 56.25%;
+            height: 0;
+            overflow: hidden;
+            border-radius: 8px;
+            margin-bottom: 40px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+
+        .video-wrapper iframe {
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+        }
+
+        h2 { 
+            font-size: 1.6rem; 
+            border-left: 5px solid var(--accent); 
+            padding-left: 12px; 
+            margin-top: 40px; 
+            color: var(--primary);
+        }
+
+        /* Quiz Layout Styles */
+        .quiz-step-container {
+            background: var(--bg);
+            padding: 30px;
+            border-radius: 8px;
+            border: 1px solid #e1e8ed;
+            margin-bottom: 30px;
+        }
+
+        .quiz-progress {
+            font-size: 0.9rem;
+            color: #7f8c8d;
+            margin-bottom: 10px;
+            font-weight: bold;
+            text-transform: uppercase;
+        }
+
+        .question-text {
+            font-size: 1.25rem;
+            font-weight: 600;
+            margin-bottom: 20px;
+            color: var(--primary);
+        }
+
+        .options-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 12px;
+        }
+
+        .option-btn {
+            background: var(--white);
+            border: 2px solid #dcdde1;
+            padding: 15px 20px;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            text-align: left;
+            font-size: 1rem;
+            color: var(--text);
+        }
+
+        .option-btn:hover:not(:disabled) {
+            border-color: var(--accent);
+            background: #f1f2f6;
+        }
+
+        .option-btn.correct { background: #d4edda !important; border-color: var(--success) !important; color: #155724; font-weight: bold; }
+        .option-btn.wrong { background: #f8d7da !important; border-color: var(--error) !important; color: #721c24; }
+
+        .feedback-box {
+            margin-top: 20px;
+            padding: 15px 20px;
+            border-radius: 6px;
+            display: none;
+            font-size: 1rem;
+            animation: fadeIn 0.4s ease;
+        }
+
+        .next-btn {
+            display: none;
+            margin-top: 20px;
+            background: var(--accent);
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            font-size: 1rem;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: bold;
+            float: right;
+        }
+
+        .next-btn:hover { background: #3b5998; }
+
+        .clear { clear: both; }
+
+        /* Summary Dashboard */
+        #results-dashboard {
+            display: none;
+            background: #eef2f7;
+            padding: 30px;
+            border-radius: 8px;
+            margin-top: 30px;
+            animation: fadeIn 0.5s ease;
+        }
+
+        .score-display { font-size: 2.5rem; font-weight: bold; color: var(--accent); text-align: center; margin-bottom: 20px; }
+
+        .error-log { text-align: left; margin-top: 20px; }
+        .error-card { background: var(--white); padding: 15px; margin-bottom: 10px; border-radius: 6px; border-left: 5px solid var(--error); box-shadow: 0 2px 5px rgba(0,0,0,0.05); }
+
+        /* Vocabulary Table */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+            background: var(--white);
+            box-shadow: 0 4px 6px rgba(0,0,0,0.02);
+            border-radius: 8px;
+            overflow: hidden;
+        }
+
+        th, td { padding: 14px 18px; text-align: left; border-bottom: 1px solid #eeedf2; }
+        th { background-color: var(--secondary); color: white; font-weight: 600; text-transform: uppercase; font-size: 0.9rem; }
+        tr:hover { background-color: #f8f9fa; }
+
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <header>
+        <h1>English Immersion Learning</h1>
+        <div class="session-date">Session Assignment: Saturday, May 16th</div>
+    </header>
+
+    <div class="video-wrapper">
+        <iframe src="https://www.youtube.com/embed/vRYl9JL6gmg" frameborder="0" allowfullscreen></iframe>
+    </div>
+
+    <h2>Interactive Review Quiz</h2>
+    <div class="quiz-step-container" id="quiz-box">
+        <div class="quiz-progress" id="progress-text">Question 1 of 20</div>
+        <div class="question-text" id="question-text">Loading question...</div>
+        <div class="options-grid" id="options-box"></div>
+        <div class="feedback-box" id="feedback-box"></div>
+        <button class="next-btn" id="next-btn" onclick="goToNextQuestion()">Next Question</button>
+        <div class="clear"></div>
+    </div>
+
+    <div id="results-dashboard">
+        <h2>Performance Review & Diagnostics</h2>
+        <div class="score-display" id="final-score-text">Score: 0 / 20</div>
+        <div id="errors-container" class="error-log"></div>
+        <button class="option-btn" style="margin-top:20px; text-align:center; display:block; width:200px; margin-left:auto; margin-right:auto;" onclick="location.reload()">Retake Quiz</button>
+    </div>
+
+    <h2>Class Vocabulary Reference</h2>
+    <table>
+        <thead>
+            <tr>
+                <th style="width: 50%;">English Term / Structure</th>
+                <th style="width: 50%;">French Definition</th>
+            </tr>
+        </thead>
+        <tbody id="vocabulary-table-body"></tbody>
+    </table>
+</div>
+
+<script>
+// Strictly factual question matrix matching the text & specific grammar points
+const quizDataset = [
+    // 5 COMPREHENSION QUESTIONS (Factual content of the video text)
+    {
+        q: "According to the video narrative, what produces the quiet and deeply corrosive feeling of self-distrust?",
+        o: ["A natural born weakness in human character", "The gap between what we know and what we actually do", "Not reading enough productivity textbooks", "Following strict corporate guidelines"],
+        c: 1,
+        e: "Factual text point: Self-distrust grows silently in the gap between what we know and what we do when we break basic promises to ourselves."
+    },
+    {
+        q: "What does the video explicitly state as the true enemy of personal order?",
+        o: ["An inherent lack of internal willpower", "An excess of complexity in the design of change", "The absence of modern time-management apps", "Not working long enough hours"],
+        c: 1,
+        e: "Factual text point: Key 1 states that the enemy is not a lack of discipline, but an excess of complexity turning change into an architectural project."
+    },
+    {
+        q: "Which Roman Emperor is cited in the text as returning to basic essentials every morning?",
+        o: ["Julius Caesar", "Nero", "Marcus Aurelius", "Augustus"],
+        c: 2,
+        e: "Factual text point: The video specifies Marcus Aurelius returning to essentials: wake up, think clearly, act with integrity."
+    },
+    {
+        q: "What metaphor is applied to willpower to show why changing everything at once fails?",
+        o: ["A roaring burning fire", "A draining phone battery", "A leaky structural bucket", "An old rusty machine"],
+        c: 1,
+        e: "Factual text point: The text directly describes willpower as a limited resource that depletes exactly like a phone battery."
+    },
+    {
+        q: "According to the text, why should you design your physical workspace and environment?",
+        o: ["To make the right action the easiest one and reduce friction", "To impress other people and look serious", "To follow artistic design traditions", "To eliminate the need for any sleep"],
+        c: 0,
+        e: "Factual text point: Designing your environment is about reducing friction so that the right action is the easiest and the wrong one is the hardest."
+    },
+
+    // 5 VOCABULARY QUESTIONS (Based strictly on Ben's lesson items)
+    {
+        q: "What is the correct English translation for the French expression 'En fait'?",
+        o: ["Currently", "Actually", "Presently", "Directly"],
+        c: 1,
+        e: "Lesson check: 'Actually' means 'En fait'. Remember that 'Currently' means 'Actuellement' and is a false friend."
+    },
+    {
+        q: "How do you distinguish between 'An issue' and 'An exit' in English?",
+        o: ["They are identical synonyms", "An issue is an entry point, an exit is a problem", "An issue is a problem, an exit is a physical way out (sortie)", "An issue is a physical door, an exit is an abstract problem"],
+        c: 2,
+        e: "Lesson check: Issue = problème / Exit = issue (sortie)."
+    },
+    {
+        q: "Which English term corresponds precisely to 'Crépuscule'?",
+        o: ["Dust", "Dawn", "Dusk", "Dark"],
+        c: 2,
+        e: "Lesson check: Dusk = crépuscule. Dust = poussière."
+    },
+    {
+        q: "If 'Food' translates to 'Nourriture', which verb represents 'Nourrir'?",
+        o: ["To bleed", "To food", "To feed", "To strike"],
+        c: 2,
+        e: "Lesson check: Food -> To feed (nourrir). This mirrors the pattern seen in Blood -> To bleed (saigner)."
+    },
+    {
+        q: "What is the meaning of the phrasal verb 'To fight back'?",
+        o: ["To surrender immediately", "Riposter / contre-attaquer", "To run away backwards", "To look behind a building"],
+        c: 1,
+        e: "Lesson check: To fight back means to counter-attack or riposter."
+    },
+
+    // 5 GRAMMAR QUESTIONS (Based strictly on Ben's lesson items)
+    {
+        q: "What is the correct plural form of the noun 'Mouse'?",
+        o: ["Mouses", "Mices", "Mice", "Meese"],
+        c: 2,
+        e: "Lesson check: 1 mouse, 2 mice. This is an irregular plural form."
+    },
+    {
+        q: "Identify the correct plural structure when talking about multiple distinct nations or ethnic groups ('des peuples'):",
+        o: ["People", "Peoples", "Persons", "Children"],
+        c: 1,
+        e: "Lesson check: 1 people = un peuple / 2 peoples = deux peuples. (When meaning 'gens', 'people' remains unchanged)."
+    },
+    {
+        q: "Complete the sentence following the correct causative grammatical pattern: 'Repeating makes it _______ easy.'",
+        o: ["becomes", "become", "becoming", "to become"],
+        c: 1,
+        e: "Lesson check: The verb 'make' is followed by an object and a bare infinitive (verb base form without 'to' or 's')."
+    },
+    {
+        q: "Which option is structurally accurate to say 'Je ne suis pas d'accord'?",
+        o: ["I am not agree", "I don't agree", "I disagree", "Both B and C are correct"],
+        c: 3,
+        e: "Lesson check: 'Agree' is a verb in English. You can negate it using 'I don't agree' or use the prefix to form 'I disagree'."
+    },
+    {
+        q: "What is the correct structural plural format for 'Child'?",
+        o: ["Childs", "Childrens", "Children", "Childes"],
+        c: 2,
+        e: "Lesson check: 1 child, 2 children. Never add an extra 's' to children."
+    },
+
+    // 5 PRONUNCIATION QUESTIONS (Based strictly on Ben's lesson items)
+    {
+        q: "Which word rhymes perfectly with 'Mud' and does NOT sound like the vowel sound in 'Food'?",
+        o: ["Mood", "Blood", "Good", "Boot"],
+        c: 1,
+        e: "Lesson check: 'Blood' is pronounced with a short 'uh' sound, rhyming with 'mud', unlike 'food'."
+    },
+    {
+        q: "In the word 'Straight' (as in 'straight ahead'), which consonant cluster is entirely silent?",
+        o: ["str", "ai", "gh", "ght"],
+        c: 2,
+        e: "Lesson check: The letters 'gh' are completely silent when pronouncing 'straight' (/streɪt/)."
+    },
+    {
+        q: "The vocabulary term 'Eye' is a homophone that sounds exactly like which English letter or pronoun?",
+        o: ["The letter E", "The pronoun 'I'", "The letter A", "The pronoun 'You'"],
+        c: 1,
+        e: "Lesson check: 'Eye' and the subject pronoun 'I' share the exact same phonetic pronunciation (/aɪ/)."
+    },
+    {
+        q: "The word 'Youth' (jeunesse) has a vowel sound identical to which of the following words?",
+        o: ["Us", "Out", "You", "Word"],
+        c: 2,
+        e: "Lesson check: 'Youth' uses a long oo sound, matching the pronoun 'You'."
+    },
+    {
+        q: "Which word rhymes exactly with the pronunciation of 'Toward' (/təˈwɔːrd/)?",
+        o: ["Board", "Word", "Hard", "Food"],
+        c: 0,
+        e: "Lesson check: 'Toward' rhymes with 'board' or 'lord'."
+    }
+];
+
+const vocabularyDataset = [
+    ["to perform", "réaliser"],
+    ["to think", "penser"],
+    ["the brain", "le cerveau"],
+    ["actually", "en fait"],
+    ["issue", "problème"],
+    ["exit", "issue (sortie)"],
+    ["I agree", "Je suis d'accord"],
+    ["I know nothing", "I do not know / Je ne sais rien"],
+    ["1 person / 2 people", "1 personne / 2 personnes"],
+    ["1 mouse / 2 mice", "1 souris / 2 souris"],
+    ["1 child / 2 children", "1 enfant / 2 enfants"],
+    ["1 people / 2 peoples", "1 peuple / 2 peuples"],
+    ["to look at", "regarder"],
+    ["to look for", "chercher"],
+    ["to search", "chercher"],
+    ["dust", "poussière"],
+    ["dusk", "crépuscule"],
+    ["somewhere", "quelque part"],
+    ["nowhere", "nulle part"],
+    ["trouble", "problème"],
+    ["to fight back", "riposter"],
+    ["the Empire Strikes Back", "L'Empire contre-attaque"],
+    ["to strike", "frapper / attaquer"],
+    ["blood / to bleed", "sang / saigner"],
+    ["food / to feed", "nourriture / nourrir"],
+    ["Youth", "jeunesse"],
+    ["youth hostel", "auberge de jeunesse"],
+    ["hotel", "hôtel"],
+    ["I don't agree / I disagree", "Je ne suis pas d'accord"],
+    ["word", "mot"],
+    ["Repeating makes it become easy", "La répétition fait que cela devient facile (Infinitif sans TO)"],
+    ["a set / to set up", "un ensemble / configurer"],
+    ["to shine", "briller"],
+    ["You are wearing glasses", "Tu portes des lunettes"],
+    ["outside", "à l'extérieur"],
+    ["you're sitting on a chair", "tu es assis sur une chaise"],
+    ["The sun is shining / The sky is blue", "Le soleil brille / Le ciel est bleu"],
+    ["You have 2 dogs / a pet", "Tu as 2 chiens / un animal domestique"],
+    ["You have a cat", "Tu as un chat"],
+    ["dominant vs submissive", "dominant vs soumis"],
+    ["to walk your pets", "promener tes animaux domestiques"],
+    ["behind / before", "derrière / avant"],
+    ["in front of you", "devant / en face de toi"],
+    ["nose / eye / forehead", "nez / oeil / front"],
+    ["forward / fast forward", "vers l'avant / avance rapide"],
+    ["backward / fast backward", "vers l'arrière / retour rapide"],
+    ["toward / building", "vers / bâtiment"],
+    ["to", "vers"],
+    ["straight forward", "droit vers l'avant"],
+    ["straight ahead", "tout droit"]
+];
+
+let activeQuestionIndex = 0;
+let userTotalScore = 0;
+let userMistakesLog = [];
+
+function loadQuestionStep() {
+    const feedbackBox = document.getElementById('feedback-box');
+    const nextButton = document.getElementById('next-btn');
+    
+    feedbackBox.style.display = "none";
+    nextButton.style.display = "none";
+
+    document.getElementById('progress-text').innerText = `Question ${activeQuestionIndex + 1} of ${quizDataset.length}`;
+    
+    const currentItem = quizDataset[activeQuestionIndex];
+    document.getElementById('question-text').innerText = currentItem.q;
+
+    const optionsBox = document.getElementById('options-box');
+    optionsBox.innerHTML = '';
+
+    currentItem.o.forEach((optionText, i) => {
+        const button = document.createElement('button');
+        button.className = 'option-btn';
+        button.innerText = optionText;
+        button.onclick = () => evaluateUserChoice(i);
+        optionsBox.appendChild(button);
+    });
+}
+
+function evaluateUserChoice(chosenIndex) {
+    const currentItem = quizDataset[activeQuestionIndex];
+    const optionsBox = document.getElementById('options-box');
+    const buttons = optionsBox.querySelectorAll('.option-btn');
+    const feedbackBox = document.getElementById('feedback-box');
+    const nextButton = document.getElementById('next-btn');
+
+    // Disable all options immediately after selection
+    buttons.forEach(btn => btn.disabled = true);
+
+    if (chosenIndex === currentItem.c) {
+        userTotalScore++;
+        buttons[chosenIndex].classList.add('correct');
+        feedbackBox.style.backgroundColor = "#d4edda";
+        feedbackBox.style.color = "#155724";
+        feedbackBox.innerHTML = `<strong>Correct!</strong> ${currentItem.e}`;
+    } else {
+        buttons[chosenIndex].classList.add('wrong');
+        buttons[currentItem.c].classList.add('correct');
+        feedbackBox.style.backgroundColor = "#f8d7da";
+        feedbackBox.style.color = "#721c24";
+        feedbackBox.innerHTML = `<strong>Incorrect.</strong> ${currentItem.e}`;
+        
+        userMistakesLog.push({
+            q: currentItem.q,
+            wrongAnswer: currentItem.o[chosenIndex],
+            correctAnswer: currentItem.o[currentItem.c],
+            exp: currentItem.e
+        });
+    }
+
+    feedbackBox.style.display = "block";
+    nextButton.style.display = "block";
+}
+
+function goToNextQuestion() {
+    activeQuestionIndex++;
+    if (activeQuestionIndex < quizDataset.length) {
+        loadQuestionStep();
+    } else {
+        displayFinalResults();
+    }
+}
+
+function displayFinalResults() {
+    document.getElementById('quiz-box').style.display = 'none';
+    const dashboard = document.getElementById('results-dashboard');
+    dashboard.style.display = 'block';
+
+    document.getElementById('final-score-text').innerText = `Final Score: ${userTotalScore} / ${quizDataset.length}`;
+
+    const errorsContainer = document.getElementById('errors-container');
+    errorsContainer.innerHTML = '';
+
+    if (userMistakesLog.length > 0) {
+        errorsContainer.innerHTML = '<h3>Incorrectly Answered Review Items:</h3>';
+        userMistakesLog.forEach(mistake => {
+            const card = document.createElement('div');
+            card.className = 'error-card';
+            card.innerHTML = `
+                <strong>Question:</strong> ${mistake.q}<br>
+                <span style="color:var(--error);">Your Answer: ${mistake.wrongAnswer}</span><br>
+                <span style="color:var(--success); font-weight:bold;">Correct Answer: ${mistake.correctAnswer}</span><br>
+                <small style="color:#555; display:block; margin-top:5px;"><em>Analysis: ${mistake.exp}</em></small>
+            `;
+            errorsContainer.appendChild(card);
+        });
+    } else {
+        errorsContainer.innerHTML = '<h3>Excellent! Perfect score. You remembered all vocabulary, grammar rules, and factual points from the video flawlessly! 🌟</h3>';
+    }
+    dashboard.scrollIntoView({ behavior: 'smooth' });
+}
+
+function populateVocabularyTable() {
+    const tbody = document.getElementById('vocabulary-table-body');
+    vocabularyDataset.forEach(row => {
+        const tr = document.createElement('tr');
+        tr.innerHTML = `<td><strong>${row[0]}</strong></td><td>${row[1]}</td>`;
+        tbody.appendChild(tr);
+    });
+}
+
+// Global initialization
+window.onload = () => {
+    loadQuestionStep();
+    populateVocabularyTable();
+};
+</script>
+
+</body>
+</html>
